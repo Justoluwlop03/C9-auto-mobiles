@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+<body>
+    <style>
+        body {
+            background-color: #0a0f1a;
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: #050814;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .navbar:hover {
+            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.2);
+        }
+
+        .nav-link,
+        .navbar-brand {
+            color: #ffffff !important;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #0d6efd;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .navbar-brand {
+            transform-origin: left;
+        }
+
+        .navbar-brand:hover {
+            transform: scale(1.1);
+            color: #0d6efd !important;
+        }
+
+        .btn-login {
+            background: #0d6efd;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+            background: transparent;
+            border-color: #0d6efd;
+        }
+
+        .btn-login::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-login:hover::before {
+            left: 100%;
+        }
+
+        /* Filter Buttons */
+        .btn.rounded-pill {
+            transition: all 0.3s ease;
+            margin: 5px;
+            border-width: 2px !important;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn.rounded-pill::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0d6efd;
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .btn.rounded-pill:hover {
+            color: white !important;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.2);
+        }
+
+        .btn.rounded-pill:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* FLEET */
+        .car-card {
+            background: #111827;
+            border-radius: 12px;
+            padding-bottom: 20px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .car-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(13, 110, 253, 0.2);
+        }
+
+        .car-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(13, 110, 253, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .car-card:hover::before {
+            opacity: 1;
+        }
+
+        .car-card img {
+            width: 100%;
+            border-radius: 12px 12px 0 0;
+            transition: all 0.5s ease;
+            filter: brightness(0.9);
+        }
+
+        .car-card:hover img {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        .car-card h5 {
+            transition: all 0.3s ease;
+        }
+
+        .car-card:hover h5 {
+            color: #0d6efd;
+        }
+
+        .car-card .btn-primary {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .car-card .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .car-card .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+        }
+
+        .car-card .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        footer {
+            background: #050814;
+            padding: 30px;
+            text-align: center;
+            color: #8f9bb7;
+            transition: all 0.3s ease;
+        }
+
+        footer:hover {
+            background: #070b1d;
+            color: #ffffff;
+        }
+
+        /* Animation delays for cards */
+        .row .col-md-4:nth-child(1) .car-card {
+            animation-delay: 0.1s;
+        }
+
+        .row .col-md-4:nth-child(2) .car-card {
+            animation-delay: 0.2s;
+        }
+
+        .row .col-md-4:nth-child(3) .car-card {
+            animation-delay: 0.3s;
+        }
+    </style>
+
+
+    <!--  NAVBAR -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4"><img src="./logo.png" alt="" width="55px"
+                    class="rounded-pill">AUTO-MOBILE</a>
+            <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto me-4">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="view.html" class="nav-link">Fleet</a></li>
+                    <li class="nav-item"><a href="index.html" class="nav-link">Services</a></li>
+                </ul>
+
+                <a href="" class="btn-login fw-bold" style="text-decoration: none;">Shop</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="text-center">
+        <button class="btn rounded-pill border border-primary text-light"><a href="view.html" class="text-white"
+                style="text-decoration: none;">Fleet</a></button>
+        <button class="btn rounded-pill border border-primary text-light"><a href="electric.html" class="text-white"
+                style="text-decoration: none;">Electric</a></button>
+
+
+
+        <!-- <button class="btn rounded-pill border border-primary text-light">SUV</button>
+        <button class="btn rounded-pill border border-primary text-light">Seden</button>
+        <button class="btn rounded-pill border border-primary text-light">Wagon</button>
+        <button class="btn rounded-pill border border-primary text-light">Pickup Truck</button>
+        <button class="btn rounded-pill border         border-primary text-light">Van</button> -->
+    </div>
+
+    <!--  PREMIUM FLEET -->
+    <section class="py-5">
+        <div class="container">
+            <h3 class="text-center mb-4 fw-bold">Premium Fleet</h3>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="car-card">
+                        <img src="./electric/cybertruck.webp" alt="">
+                        <div class="p-3">
+                            <h5>Tesla Cyber Truck</h5>
+                            <p>₦45,000/day</p>
+                            <button class="btn btn-primary w-100"><a href="" class="text-light"
+                                    style="text-decoration: none;">SHOP</a></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="car-card">
+                        <img src="./electric/challenger daytone EV.webp" alt="">
+                        <div class="p-3">
+                            <h5>Dodge Charger Daytona EV</h5>
+                            <p>₦50,000/day</p>
+                            <button class="btn btn-primary w-100"><a href="" class="text-light"
+                                    style="text-decoration: none;">SHOP</a></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="car-card">
+                        <img src="./electric/porsche-taycan-turbo-gt-2024-rear.webp" alt="">
+                        <div class="p-3">
+                            <h5>Porsche Taycan</h5>
+                            <p>₦60,000/day</p>
+                            <button class="btn btn-primary w-100"><a href="" class="text-light"
+                                    style="text-decoration: none;">SHOP</a></button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="py-5">
+        <div class="container">
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="car-card">
+                        <img src="./electric/2025-hyundai-ioniq-5-n-109-663249ee4e174.webp" alt="">
+                        <div class="p-3">
+                            <h5>Hyundai Ioniq 5</h5>
+                            <p>₦45,000/day</p>
+                            <button class="btn btn-primary w-100"><a href="" class="text-light"
+                                    style="text-decoration: none;">SHOP</a></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="car-card">
+                        <img src="./electric/kia ev4.webp" alt="">
+                        <div class="p-3">
+                            <h5>KIA EV4</h5>
+                            <p>₦50,000/day</p>
+                            <button class="btn btn-primary w-100"><a href="" class="text-light"
+                                    style="text-decoration: none;">SHOP</a></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="car-card">
+                        <img src="./electric/tesla.webp" alt="">
+                        <div class="p-3">
+                            <h5>TESLA Model S</h5>
+                            <p>₦60,000/day</p>
+                            <button class="btn btn-primary w-100"><a href="" class="text-light"
+                                    style="text-decoration: none;">SHOP</a></button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="container">
+
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="car-card">
+                        <img src="./electric/image audi.webp" alt="">
+                        <div class="p-3">
+                            <h5>AUDI E-TRON</h5>
+                            <p>₦45,000/day</p>
+                            <button class="btn btn-primary w-100"><a href="" class="text-light"
+                                    style="text-decoration: none;">SHOP</a></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="car-card">
+                        <img src="./electric/p90523048_highres_the-bmw-i5-edrive40.webp" alt="">
+                        <div class="p-3">
+                            <h5>BMW I5</h5>
+                            <p>₦50,000/day</p>
+                            <button class="btn btn-primary w-100"><a href="" class="text-light"
+                                    style="text-decoration: none;">SHOP</a></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="car-card">
+                        <img src="./electric/tesla model Y.webp" alt="">
+                        <div class="p-3">
+                            <h5>TESLA Model Y</h5>
+                            <p>₦60,000/day</p>
+                            <button class="btn btn-primary w-100"><a href="" class="text-light"
+                                    style="text-decoration: none;">SHOP</a></button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <section class="py-5">
+        <div class="container">
+
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="car-card">
+                        <img src="./electric/kona.jpg" alt="">
+                        <div class="p-3">
+                            <h5>Hyundia Kona</h5>
+                            <p>₦45,000/day</p>
+                            <button class="btn btn-primary w-100"><a href="" class="text-light"
+                                    style="text-decoration: none;">SHOP</a></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="car-card">
+                        <img src="./electric/mini electric.webp" alt="">
+                        <div class="p-3">
+                            <h5>Mini EV</h5>
+                            <p>₦50,000/day</p>
+                            <button class="btn btn-primary w-100"><a href="" class="text-light"
+                                    style="text-decoration: none;">SHOP</a></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="car-card">
+                        <img src="./electric/2025-09-2026-skoda-enyaq-suv-85-sportline-10.webp" alt="">
+                        <div class="p-3">
+                            <h5>Skoda Enyaq</h5>
+                            <p>₦60,000/day</p>
+                            <button class="btn btn-primary w-100"><a href="" class="text-light"
+                                    style="text-decoration: none;">SHOP</a></button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="container">
+
+            <div class="row g-4 C9">
+                <div class="col-md-4">
+                    <div class="car-card">
+                        <img src="./electric/untitled-0083-e1755101027879.webp" alt="">
+                        <div class="p-3">
+                            <h5>Cadillac Escalade IQ</h5>
+                            <p>₦45,000/day</p>
+
+                            <button class="btn btn-primary w-100"><a href="" class="text-light"
+                                    style="text-decoration: none;">SHOP</a></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="car-card">
+                        <img src="./electric/Polestar 5.webp" alt="">
+                        <div class="p-3">
+                            <h5>Polestar</h5>
+                            <p>₦50,000/day</p>
+
+                            <button class="btn btn-primary w-100"><a href="" class="text-light"
+                                    style="text-decoration: none;">SHOP</a></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="car-card">
+                        <img src="./electric/7-2025-mercedes-benz-eqb-front-view.webp" alt="">
+                        <div class="p-3">
+                            <h5>Mercedes EQB class</h5>
+                            <p>₦60,000/day</p>
+
+                            <button class="btn btn-primary w-100"><a href="" class="text-light"
+                                    style="text-decoration: none;">SHOP</a></button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section class="py-5">
+        <div class="container">
+
+            <div class="row g-4 C9">
+                <div class="col-md-4">
+                    <div class="car-card">
+                        <img src="./electric/2022_BYD_Seal.webp" alt="">
+                        <div class="p-3">
+                            <h5>BYD</h5>
+                            <p>₦45,000/day</p>
+
+                            <button class="btn btn-primary w-100"><a href="" class="text-light"
+                                    style="text-decoration: none;">SHOP</a></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="car-card">
+                        <img src="./electric/(CHN-Guangdong)_Private_Nio_EC7_粤BBY61xx_2024-05-25.webp" alt="">
+                        <div class="p-3">
+                            <h5>Nio</h5>
+                            <p>₦50,000/day</p>
+
+                            <button class="btn btn-primary w-100"><a href="" class="text-light"
+                                    style="text-decoration: none;">SHOP</a></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="car-card">
+                        <img src="./electric/(CHN-Guangdong)_Private_XPeng_P7i_粤BC556xx_2024-05-27.webp" alt="">
+                        <div class="p-3">
+                            <h5>Xpeng</h5>
+                            <p>₦60,000/day</p>
+
+                            <button class="btn btn-primary w-100"><a href="" class="text-light"
+                                    style="text-decoration: none;">SHOP</a></button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+    <footer>
+        &copy; 2025 C9. All Rights Reserved.
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
