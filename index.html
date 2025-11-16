@@ -1,594 +1,612 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Velocity - Drive The Future</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>C9 Groups — Automotive • Properties • Clothing • More</title>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <style>
-        body {
-            background-color: #0a0f1a;
-            color: white;
-            font-family: 'Arial', sans-serif;
-        }
+  <!-- AOS (scroll animations) -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
 
-        /* NAVBAR */
-        .navbar {
-            background:  #0a0f1a;
-            padding: 20px;
-            position: sticky;
-            top: 0;
-            z-index: 99;
-            transition: all 0.3s ease;
-        }
+  <style>
+    /* ---------- Palette (from logo) ---------- */
+    :root {
+      --c9-blue: #1070e6;
+      /* bright blue used in logo */
+      --c9-navy: #06182c;
+      /* deep navy background */
+      --c9-white: #ffffff;
+      --muted: #9fb6d9;
+      --glass: rgba(255, 255, 255, 0.04);
+    }
 
-        .navbar:hover {
-            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.2);
-        }
+    html,
+    body {
+      height: 100%;
+      background: linear-gradient(180deg, var(--c9-navy) 0%, #021427 100%);
+      color: var(--c9-white);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing: antialiased;
+    }
 
-        .nav-link,
-        .navbar-brand {
-            color: #ffffff !important;
-            transition: all 0.3s ease;
-            position: relative;
-        }
+    /* ---------- Navbar ---------- */
+    .navbar {
+      background: rgba(4, 12, 24, 0.45);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: #0d6efd;
-            transition: width 0.3s ease;
-        }
+    .navbar-brand {
+      color: var(--c9-blue);
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
 
-        .nav-link:hover::after {
-            width: 100%;
-        }
+    .nav-link {
+      color: rgba(255, 255, 255, 0.85);
+    }
 
-        .navbar-brand {
-            transform-origin: left;
-        }
+    .nav-link:hover {
+      color: var(--c9-blue);
+    }
 
-        .navbar-brand:hover {
-            transform: scale(1.1);
-            color: #0d6efd !important;
-        }
+    /* ---------- Hero ---------- */
+    .hero {
+      min-height: 78vh;
+      display: flex;
+      align-items: center;
+      padding-top: 4.5rem;
+      padding-bottom: 4.5rem;
+    }
 
-        .btn-login {
-            background: #0d6efd;
-            color: white;
-            padding: 8px 20px;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
+    .hero-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      border-radius: 16px;
+      padding: 2.25rem;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 8px 30px rgba(2, 8, 20, 0.6);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(6px);
+    }
 
-        .btn-login:hover {
-            background: transparent;
-            border-color: #0d6efd;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
-        }
+    .hero-cta .btn-primary {
+      background: linear-gradient(90deg, var(--c9-blue), #0059d1);
+      border: none;
+      box-shadow: 0 8px 25px rgba(16, 112, 230, 0.18);
+    }
 
-        /* HERO SECTION */
-        .hero {
-            background: linear-gradient(135deg, #0a0f1a, #081a3e);
-            padding: 70px 20px;
-            position: relative;
-            overflow: hidden;
-        }
+    .hero-cta .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--c9-white);
+    }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(13, 110, 253, 0.1) 0%, transparent 50%);
-            top: -50%;
-            left: -50%;
-            animation: pulse 15s infinite;
-        }
+    /* decorative pulse circle */
+    .pulse {
+      position: absolute;
+      right: -60px;
+      top: -50px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle at 30% 30%, rgba(16, 112, 230, 0.16), transparent 35%);
+      border-radius: 50%;
+      filter: blur(10px);
+      animation: float 6s ease-in-out infinite;
+      pointer-events: none;
+    }
 
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.3; }
-            50% { transform: scale(1.2); opacity: 0.1; }
-            100% { transform: scale(1); opacity: 0.3; }
-        }
+    @keyframes float {
 
-        .hero h1 {
-            font-size: 48px;
-            font-weight: 800;
-            color: #7bb2ff;
-            animation: slideIn 1s ease-out;
-        }
+      0%,
+      100% {
+        transform: translateY(0) translateX(0);
+      }
 
-        @keyframes slideIn {
-            from { transform: translateY(-30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
+      50% {
+        transform: translateY(-8px) translateX(6px);
+      }
+    }
 
-        .hero-box {
-            background: #111827;
-            height: 200px;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
+    /* ---------- Services ---------- */
+    .service-card {
+      background: var(--glass);
+      border-radius: 14px;
+      padding: 1.25rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: transform .28s ease, box-shadow .28s ease;
+    }
 
-        .btn-primary {
-            background: #1a73e8;
-            border: none;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 30px rgba(2, 8, 20, 0.7), 0 0 22px rgba(16, 112, 230, 0.08);
+    }
 
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                120deg,
-                transparent,
-                rgba(255, 255, 255, 0.2),
-                transparent
-            );
-            transition: 0.5s;
-        }
+    .service-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--c9-blue);
+      font-size: 24px;
+    }
 
-        .btn-primary:hover::before {
-            left: 100%;
-        }
+    /* ---------- Featured (cards / grid) ---------- */
+    .feature-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.02));
+      border-radius: 12px;
+      padding: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      transition: transform .28s ease;
+      overflow: hidden;
+    }
 
-        .btn-outline-light {
-            border: 1px solid #7bb2ff;
-            color: #7bb2ff;
-            transition: all 0.3s ease;
-        }
+    .feature-card:hover {
+      transform: translateY(-6px);
+    }
 
-        .btn-primary:hover,
-        .btn-outline-light:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
-        }
+    /* ---------- Small animations ---------- */
+    .glow-text {
+      color: var(--c9-white);
+      text-shadow: 0 6px 30px rgba(16, 112, 230, 0.08);
+    }
 
-        /* WHY CHOOSE US */
-        .feature-box {
-            background: #111827;
-            padding: 25px;
-            border-radius: 12px;
-            transition: all 0.4s ease;
-            cursor: pointer;
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
-        }
+    .accent {
+      color: var(--c9-blue);
+      font-weight: 700;
+    }
 
-        .feature-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #0d6efd, #1a73e8);
-            opacity: 0;
-            z-index: -1;
-            transition: opacity 0.4s ease;
-        }
+    /* ---------- Testimonials ---------- */
+    .testimonial {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      padding: 1.25rem;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
 
-        .feature-box:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(13, 110, 253, 0.2);
-        }
+    /* ---------- Contact form ---------- */
+    .form-control,
+    .form-select,
+    textarea.form-control {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--c9-white);
+      border-radius: 8px;
+    }
 
-        .feature-box:hover::before {
-            opacity: 0.1;
-        }
+    .form-control:focus,
+    .form-select:focus {
+      box-shadow: 0 6px 20px rgba(16, 112, 230, 0.12);
+      border-color: var(--c9-blue);
+    }
 
-        /* FLEET */
-        .car-card {
-            
-            background: #111827;
-            border-radius: 12px;
-            padding-bottom: 20px;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
+    /* ---------- Footer ---------- */
+    footer {
+      background: linear-gradient(180deg, rgba(2, 6, 12, 0.75), rgba(2, 6, 12, 0.9));
+      padding-top: 2.5rem;
+      padding-bottom: 2.5rem;
+      color: var(--muted);
+    }
 
-        .car-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 25px rgba(13, 110, 253, 0.3);
-        }
+    .social-btn {
+      width: 44px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      color: var(--c9-white);
+    }
 
-        .car-card img {
-            width: 100%;
-            border-radius: 12px 12px 0 0;
-            transition: all 0.5s ease;
-        }
+    /* ---------- Responsive tweaks ---------- */
+    @media (max-width: 767px) {
+      .hero {
+        padding-top: 6rem;
+        padding-bottom: 3rem;
+      }
 
-        .car-card:hover img {
-            transform: scale(1.05);
-        }
-
-        /* RENTAL SERVICES */
-        .service-box {
-            background: #111827;
-            padding: 20px;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
-        }
-
-        .service-box:hover {
-            border-color: #0d6efd;
-            box-shadow: 0 0 20px rgba(13, 110, 253, 0.2);
-        }
-
-        .service-box input {
-            transition: all 0.3s ease;
-        }
-
-        .service-box input:focus {
-            border-color: #0d6efd;
-            box-shadow: 0 0 10px rgba(13, 110, 253, 0.2);
-        }
-
-        /* ABOUT */
-        .about-img {
-            width: 100%;
-            border-radius: 12px;
-            transition: all 0.5s ease;
-            cursor: pointer;
-            filter: brightness(0.9);
-        }
-
-        .about-img:hover {
-            transform: scale(1.05);
-            filter: brightness(1.1);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        /* CONTACT */
-        .contact-box {
-            background: #111827;
-            padding: 25px;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
-        }
-
-        .contact-box:hover {
-            border-color: #0d6efd;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(13, 110, 253, 0.15);
-        }
-
-        .contact-box textarea {
-            transition: all 0.3s ease;
-            resize: none;
-        }
-
-        .contact-box textarea:focus {
-            border-color: #0d6efd;
-            box-shadow: 0 0 10px rgba(13, 110, 253, 0.2);
-        }
-
-          
-
-
-
-         .btn.rounded-pill:hover {
-            color: white !important;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.2);
-        }
-
-        .btn.rounded-pill:hover::before {
-            transform: scaleX(1);
-            transform-origin: left;
-        }
-
-
-
-
-
-        footer {
-            background: #050814;
-            padding: 30px;
-            text-align: center;
-            color: #8f9bb7;
-            transition: all 0.3s ease;
-        }
-
-        footer:hover {
-            background: #070b1d;
-            color: #ffffff;
-        }
-
-    </style>
+      .pulse {
+        display: none;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-    <!--  NAVBAR -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand fw-bold fs-4"><img src="./logo.png" alt="" width="55px" class="rounded-pill">AUTO-MOBILE</a>
-            <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+  <!-- NAV -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <!-- simple inline logo mark using palette -->
+        <span
+          style="display:inline-block;width:36px;height:36px;background:var(--c9-white);border-radius:50%;margin-right:.6rem;vertical-align:middle;position:relative;overflow:hidden;">
+          <svg viewBox="0 0 100 100" width="36" height="36" style="position:absolute;left:0;top:0;">
+            <circle cx="50" cy="50" r="46" fill="#06182c" />
+            <text x="50" y="62" text-anchor="middle" fill="#1070e6" font-size="46" font-weight="700"
+              font-family="Inter">C9</text>
+          </svg>
+        </span>
+        <span style="vertical-align:middle"> Groups</span>
+      </a>
 
-            <div class="collapse navbar-collapse" id="navMenu">
-                <ul class="navbar-nav ms-auto me-4">
-                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="view.html" class="nav-link">Fleet</a></li>
-                    <li class="nav-item"><a href="index.html" class="nav-link">Services</a></li>
-                </ul>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-                <a href="" class="btn-login fw-bold" style="text-decoration: none;">SHOP</a>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link fw-bold" href="#services">Services</a></li>
+          <li class="nav-item"><a class="nav-link fw-bold" href="#ventures">Ventures</a></li>
+          <li class="nav-item"><a class="nav-link fw-bold" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link fw-bold" href="#contact">Contact</a></li>
+          <li class="nav-item ms-2"><a class="btn btn-outline-light btn-sm fw-bold" href="#contact">Get In Touch</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6" data-aos="fade-right">
+          <div class="hero-card">
+            <div class="pulse" aria-hidden="true"></div>
+            <h1 class="display-6 glow-text mb-3">C9 Groups <span class="accent">Built for Life</span></h1>
+            <p class="lead text-muted" style="color:var(--muted)">
+              We are a multi-venture group powering lifestyle, mobility, and modern living — Automotive, Properties,
+              Clothing and more. Elegance, trust and innovation at scale.
+            </p>
+
+            <div class="d-flex gap-2 hero-cta mt-4">
+              <a href="#ventures" class="btn btn-primary btn-lg">Explore Ventures</a>
+              <a href="#contact" class="btn btn-outline hero-cta-btn">Request A Proposal</a>
             </div>
-        </div>
-    </nav>
 
-    <!-- HERO SECTION -->
-    <section class="hero text-center text-md-start">
-        <div class="container">
-            <div class="row align-items-center g-4">
-                <div class="col-md-6">
-                    <h1 class="text-light">DRIVE THE<br><span style="color: #0d6efd;">FUTURE</span></h1>
-                    <p class="mt-3 text-light">We specialize in premium vehicles built for performancce, comfort, and class.
-                        From high-end SUVs to executive sedans, C9 AUTO-MOBILES delivers a tailored buying experience design for those
-                        who want more than just a car.
+            <div class="mt-4 d-flex flex-wrap gap-3">
+              <div class="d-flex align-items-center">
+                <div class="service-icon me-3"><svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M3 12h18" stroke="#1070e6" stroke-width="2" stroke-linecap="round" />
+                  </svg></div>
+                <div>
+                  <div style="font-size:.9rem;font-weight:700">3 Ventures</div>
+                  <div style="font-size:.78rem;color:var(--muted)">Automobile • Properties • Clothing</div>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center">
+                <div class="service-icon me-3"><svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2v20" stroke="#1070e6" stroke-width="2" stroke-linecap="round" />
+                  </svg></div>
+                <div>
+                  <div style="font-size:.9rem;font-weight:700">Trusted Partners</div>
+                  <div style="font-size:.78rem;color:var(--muted)">Industry leaders & verified vendors</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 d-none d-lg-block" data-aos="fade-left">
+          <!-- Visual cluster showing three venture cards -->
+          <div class="row g-3">
+            <div class="col-12">
+              <div class="feature-card p-3">
+                <div class="row g-2 align-items-center">
+                  <div class="col-4">
+                    <img src="./image/IMG_5084.JPG" alt="automobile"
+                      class="img-fluid rounded" style="height:110px;object-fit:cover;">
+                  </div>
+                  <div class="col-8">
+                    <h5 class="mb-1">C9 Automobile</h5>
+                    <p class="mb-0" style="color:var(--muted)">Sales, fleet solutions & aftercare for modern drivers.
                     </p>
-
-                    <div class="mt-4">
-                        <button class="btn btn-primary me-2 fw-bold"><a href="" class="text-light" style="text-decoration: none;">Shop</a></button>
-                        <button class="btn btn-primary me-2 fw-bold"><a href="view.html" class="text-light" style="text-decoration: none;">Explore Fleet</a></button>
-                       
-                    </div>
+                  </div>
                 </div>
-                <div class="col-md-6">
-                    
+              </div>
+            </div>
 
+            <div class="col-12">
+              <div class="feature-card p-3">
+                <div class="row g-2 align-items-center">
+                  <div class="col-4">
+                    <img src="./house2.webp" alt="property"
+                      class="img-fluid rounded" style="height:110px;object-fit:cover;">
+                  </div>
+                  <div class="col-8">
+                    <h5 class="mb-1">C9 Properties</h5>
+                    <p class="mb-0" style="color:var(--muted)">Residential & commercial property development and
+                      management.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-                        <div id="carouselExample" class="carousel slide">
-                            <div class="carousel-inner rounded-4">
-                                <div class="carousel-item active">
-                                    <img src="./image/IMG_5097.JPG"
-                                        class="d-block w-100" alt="...">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="./image/IMG_5082.JPG"
-                                        class="d-block w-100" alt="...">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="./image/IMG_5100.JPG"
-                                        class="d-block w-100" alt="...">
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
-                                data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
-                                data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
+            <div class="col-12">
+              <div class="feature-card p-3">
+                <div class="row g-2 align-items-center">
+                  <div class="col-4">
+                    <img src="./interior-of-a-modern-menswear-shop.webp" alt="clothing"
+                      class="img-fluid rounded" style="height:110px;object-fit:cover;">
+                  </div>
+                  <div class="col-8">
+                    <h5 class="mb-1">C9 Clothing</h5>
+                    <p class="mb-0" style="color:var(--muted)">Quality apparel for modern living and brand
+                      merchandising.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- SERVICES -->
+  <section id="services" class="py-5">
+    <div class="container">
+      <div class="row align-items-center mb-4">
+        <div class="col-md-8">
+          <h2 class="mb-1" data-aos="fade-up">What C9 Does</h2>
+          <p class="text mb-0" data-aos="fade-up" data-aos-delay="80">We build businesses that solve everyday needs
+            mobility, shelter and style backed by exceptional service and technology.</p>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="120">
+          <div class="service-card">
+            <div class="d-flex align-items-start gap-3">
+              <div class="service-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M3 13h18M5 9h14" stroke="#1070e6" stroke-width="2" stroke-linecap="round" />
+                </svg></div>
+              <div>
+                <h5 class="mb-1">Automotive Solutions</h5>
+                <p class="mb-0" style="color:var(--muted)">Sales, rentals, fleet services, and aftercare.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="160">
+          <div class="service-card">
+            <div class="d-flex align-items-start gap-3">
+              <div class="service-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M3 13h18M5 9h14" stroke="#1070e6" stroke-width="2" stroke-linecap="round" />
+                </svg></div>
+              <div>
+                <h5 class="mb-1">Property Development</h5>
+                <p class="mb-0" style="color:var(--muted)">Development, sales, leasing and property management.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="service-card">
+            <div class="d-flex align-items-start gap-3">
+              <div class="service-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M3 13h18M5 9h14" stroke="#1070e6" stroke-width="2" stroke-linecap="round" />
+                </svg></div>
+              <div>
+                <h5 class="mb-1">Clothing & Merch</h5>
+                <p class="mb-0" style="color:var(--muted)">Design, production and retail for quality branded apparel.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VENTURES / FEATURED -->
+  <section id="ventures" class="py-5">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="mb-0" data-aos="fade-right">Featured Ventures</h3>
+        <!-- <a href="#contact" class="btn btn-outline-light">Partner With Us</a> -->
+      </div>
+
+      <div class="row g-3">
+        <div class="col-lg-4 col-md-6" data-aos="zoom-in">
+          <article class="feature-card">
+            <img src="./image/IMG_5099.JPG" alt="auto"
+              class="img-fluid rounded mb-3" style="height:200px;object-fit:cover;">
+            <h5>C9 Automobile</h5>
+            <p class="text">Premium cars, smart financing, leasing and Fleet Solutions tailored for businesses and
+              individuals.</p>
+            <div class="mt-2"><a class="btn btn-sm btn-primary" href="C9autos.html">Learn More</a></div>
+          </article>
+        </div>
+
+        <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="60">
+          <article class="feature-card">
+            <img src="./house2.webp" alt="prop"
+              class="img-fluid rounded mb-3" style="height:200px;object-fit:cover;">
+            <h5>C9 Properties</h5>
+            <p class="text">Residential developments, property sales, and hands-on property management for
+              reliable returns.</p>
+            <div class="mt-2"><a class="btn btn-sm btn-primary" href="property.html">Learn More</a></div>
+          </article>
+        </div>
+
+        <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="90">
+          <article class="feature-card">
+            <img src="./interior-of-a-modern-menswear-shop.webp" alt="clothing"
+              class="img-fluid rounded mb-3" style="height:200px;object-fit:cover;">
+            <h5>C9 Clothing</h5>
+            <p class="text">Fashion-forward apparel and corporate merchandising crafted to premium standards.</p>
+            <div class="mt-2"><a class="btn btn-sm btn-primary" href="#contact">Shop Now</a></div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-5">
+    <div class="container">
+      <h3 class="mb-3" data-aos="fade-up">What partners say</h3>
+      <div class="row g-3">
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="40">
+          <div class="testimonial">
+            <p class="mb-1">"C9 helped our company modernize our fleet. Professional, timely and excellent after sales
+              support."</p>
+            <!-- <div class="small text-muted">— A. Johnson, Fleet Manager</div> -->
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="80">
+          <div class="testimonial">
+            <p class="mb-1">"We partnered on a property project the process was transparent and the delivery exceeded
+              expectations."</p>
+            <!-- <div class="small text-muted">— L. Okoye, Real Estate Investor</div> -->
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="120">
+          <div class="testimonial">
+            <p class="mb-1">"The merchandise line is great quality and our staff love the corporate sets. Fast
+              turn-around."</p>
+            <!-- <div class="small text-muted">— M. Ibrahim, Retail Manager</div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="py-5">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-md-6" data-aos="fade-right">
+          <h3>About C9 Groups</h3>
+          <p class="text">C9 Groups is a diversified venture built on three pillars: mobility, property and lifestyle.
+            We combine market-leading expertise with customer-first operations to deliver dependable products and
+            services across sectors.</p>
+          <ul class="list-unstyled text">
+            <li>• People-centered service & transparent processes</li>
+            <li>• Data-driven decisions and sustainable practices</li>
+            <li>• Long term partnerships and strong supply chains</li>
+          </ul>
+        </div>
+       
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="py-5">
+    <div class="container">
+      <div class="row g-4">
+        <!-- <div class="col-lg-6" data-aos="fade-right">
+          <h4>Contact Us</h4>
+          <p class="text">Send a message and our team will respond within 48 hours.</p>
+          <form
+            onsubmit="event.preventDefault(); alert('Thank you — this form is a demo. Integrate a backend to send messages.');">
+            <div class="mb-3">
+              <label class="form-label small">Full name</label>
+              <input class="form-control" placeholder="Jane Doe" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small">Email</label>
+              <input class="form-control" type="email" placeholder="you@company.com" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small">Select Venture</label>
+              <select class="form-select">
+                <option>C9 Automobile</option>
+                <option>C9 Properties</option>
+                <option>C9 Clothing</option>
+                <option>Partnership & Others</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small">Message</label>
+              <textarea class="form-control" rows="4" placeholder="Tell us about your project or inquiry"></textarea>
+            </div>
+            <button class="btn btn-primary">Send Message</button>
+          </form>
+        </div> -->
+
+        <div class="col-lg-6" data-aos="fade-left">
+          <div class="p-4"
+            style="background:rgba(255,255,255,0.02); border-radius:12px; border:1px solid rgba(255,255,255,0.03)">
+            <h5 class="mb-2">Contact Us</h5>
+            <p class="text mb-1">Address: Opp AbujaWorldTrade Center (center Area)</p>
+            <p class="text mb-0">Email: C9motors@gmail.com</p>
+            <p class="text">Phone: +234 913 408 5003</p>
+            <hr style="border-color: rgba(255,255,255,0.04)">
+            <h6 class="mb-2">Follow Us</h6>
+            <div class="d-flex gap-2">
+            
+
+                                      <div class="text-center">
+                            <button class="btn rounded-pill border border-1 border-primary "><a href="#"
+                                    class="text-light" style="text-decoration: none;">Whatsapp</a></button>
+                            <button class="btn rounded-pill border border-1 border-primary "><a href="https://www.instagram.com/c9_automobiles?igsh=MTM2bGk0NHFkNnd3Nw%3D%3D&utm_source=qr"
+                                    class="text-light" style="text-decoration: none;">Instagram</a></button>
+                            <button class="btn rounded-pill border border-1 border-primary "><a href="#"
+                                    class="text-light" style="text-decoration: none;">TIKTOK</a></button>
                         </div>
 
 
 
-
-
-
-                    
-                </div>
             </div>
+          </div>
         </div>
-    </section>
 
-    <!--  WHY CHOOSE US -->
-    <section class="py-5">
-        <div class="container">
-            <h3 class="text-center mb-4 fw-bold">Why Choose C9 AUTO-MOBILES </h3>
+      </div>
+    </div>
+  </section>
 
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="feature-box text-center">
-                        <img src="./1.png" class="rounded-4" alt="" width="50px"><br>
-                        <br>
-                        <h5>Affordable Pricing</h5>
-                        <p>Top-tier vehicles at competitive rates.</p>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="feature-box text-center">
-                         <img src="./2.png" class="rounded-4" alt="" width="50px"><br>
-                         <br>
-                        <h5>24/7 Support</h5>
-                        <p>We’re available anytime you need us.</p>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="feature-box text-center">
-                         <img src="./3.png" class="rounded-4" alt="" width="50px"><br>
-                        <h5>Premium Fleet</h5>
-                        <p>Choose from a collection of luxurious vehicles.</p>
-                    </div>
-                </div>
-            </div>
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="row align-items-center gy-3">
+        <div class="col-md-6">
+          <div style="font-weight:700;color:var(--c9-white)">C9 Groups</div>
+          <div class="small ">© <span id="year"></span> C9 Groups • All rights reserved</div>
         </div>
-    </section>
 
-    <!--  PREMIUM FLEET -->
-    <section class="py-5">
-        <div class="container">
-            <h3 class="text-center mb-4 fw-bold">Premium Fleet</h3>
-             <p class="text-center">Discover our collection of luxury and performance vehicles.</p>
-
-            <div class="row g-4 C9">
-                <div class="col-md-4">
-                    <div class="car-card">
-                        <img src="./image/IMG_5072.JPG" alt="">
-                        <div class="p-3">
-                            <h5>Mercedes AMG</h5>
-                            
-                            <p>Rating: 5.0 ⭐⭐⭐⭐⭐</p>
-                            <button class="btn btn-primary w-100"><a href="" class="text-light" style="text-decoration: none;">SHOP</a></button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="car-card">
-                        <img src="./X6.webp" alt="">
-                        <div class="p-3">
-                            <h5>BMW X6</h5>
-
-                             <p>Rating: 5.0 ⭐⭐⭐⭐⭐</p>
-                            <button class="btn btn-primary w-100"><a href="" class="text-light" style="text-decoration: none;">SHOP</a></button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="car-card">
-                        <img src="./VELAR.webp" alt="">
-                        <div class="p-3">
-                            <h5>Range Rover Velar</h5>
-                            
-                             <p>Rating: 5.0 ⭐⭐⭐⭐⭐</p>
-                            <button class="btn btn-primary w-100"><a href="" class="text-light" style="text-decoration: none;">SHOP</a></button>
-                        </div>
-                    </div>
-                </div>
-                <button class="btn border border-2 border-primary w-25 fw-bold mx-auto" style="color:#0d6efd;"><a href="view.html" style="text-decoration: none;">View All</a></button>
-            </div>
+        <div class="col-md-6 text-md-end">
+          <a class="text small me-3" href="#privacy">Privacy</a>
+          <a class="text small me-3" href="#terms">Terms</a>
+          <a class="text small" href="#sitemap">Sitemap</a>
         </div>
-    </section>
+      </div>
+    </div>
+  </footer>
 
-    <!--  SERVICES -->
-    <section class="py-5">
-        <div class="container">
-            <h3 class="text-center mb-4 fw-bold">Services</h3>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-            <!-- <div class="row g-4">
-                <div class="col-md-6">
-                    <div class="service-box">
-                        <h5>Book Your Ideal Ride</h5>
-                        <form class="mt-3">
-                            <div class="row">
-                                <div class="col-6">
-                                    <label>Pickup Date</label>
-                                    <input type="date" class="form-control">
-                                </div>
-                                <div class="col-6">
-                                    <label>Return Date</label>
-                                    <input type="date" class="form-control">
-                                </div>
-                            </div>
-                            <button class="btn btn-primary w-100 mt-3">Check Availability</button>
-                        </form>
-                    </div>
-                </div> -->
+  <!-- AOS JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 
-                <div class="col-md-6">
-                    <div class="service-box">
-                        <h5>Other Services</h5>
-                        <ul class="mt-3">
-                             <li>Car Sales</li>
-                            <li>Chauffeur Service</li>
-                            <li>Corporate & Escort Rentals</li>
-                            <li>Luxury Event Rentals</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <script>
+    // init AOS
+    AOS.init({
+      duration: 700,
+      once: true,
+      easing: 'ease-out-quart'
+    });
 
-    <!--  ABOUT -->
-    <section class="py-5">
-        <div class="container">
-            <h3 class="text-center mb-4 fw-bold">About C9 AUTO-MOBILES</h3>
-
-            <div class="row g-4">
-                <div class="col-md-6">
-                    <p>
-                       At C9 AUTO-MOBILE, we are more than just a car dealership 
-                        we are a trusted partner dedicated to helping individuals and businesses find the perfect vehicle for their lifestyle, needs, and budget. 
-                        Founded on integrity, transparency, and a passion for quality automobiles,
-                        C9 AUTO-MOBILE continues to redefine the experience of car ownership through exceptional service and a customer-first approach.
-                    </p>
-                </div>
-
-                <div class="col-md-6 d-flex gap-3">
-                    <img src="./image/IMG_5105.JPG" class="about-img w-50" height="80%">
-                    <img src="./image/IMG_5104.JPG" class="about-img w-50" height="80%">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!--  CONTACT -->
-    <section class="py-5">
-        <div class="container">
-            <h3 class="text-center mb-4 fw-bold">Get in Touch</h3>
-
-            <!-- <div class="row g-4">
-                <div class="col-md-6">
-                    <div class="contact-box">
-                        <h5>Send a Message</h5>
-                        <textarea class="form-control mt-3" rows="4" placeholder="Type your message..."></textarea>
-                        <button class="btn btn-primary w-100 mt-3">Send</button>
-                    </div>
-                </div> -->
-
-                <div class="col-md-6">
-                    <div class="contact-box">
-                        <h5>Contact Information</h5>
-                        <p class="mt-3">Email: support@velocity.com</p>
-                        <p>Phone: +234 913 408 5003</p>
-                        <p>Address: Opp AbujaWorldTrade Center (center Area)</p>
-
-                        
-                        <div class="text-center">
-                         <button class="btn rounded-pill border border-1 border-primary "><a href="#" class="text-light" style="text-decoration: none;">Whatsapp</a></button>
-                         <button class="btn rounded-pill border border-1 border-primary "><a href="#" class="text-light" style="text-decoration: none;">Instagram</a></button>
-                         <button class="btn rounded-pill border border-1 border-primary "><a href="#" class="text-light" style="text-decoration: none;">TIKTOK</a></button>
-                        </div>
-
-                        
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!--  FOOTER -->
-    <footer>
-        &copy; 2025 C9. All Rights Reserved.
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
+    // footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 
 </html>
